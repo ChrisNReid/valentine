@@ -345,7 +345,7 @@ function App() {
             <div className="plan-modal-section">
               <h3>1. Three-Course Home-Cooked Dinner</h3>
               <ul>
-                <li><span>Starter:</span> Light snacks</li>
+                <li><span>Starter:</span> Little bites to share</li>
                 <li><span>Main:</span> A warm, comforting main course</li>
                 <li><span>Dessert:</span> Something sweet, like you</li>
               </ul>
