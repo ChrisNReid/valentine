@@ -272,7 +272,7 @@ function App() {
         <>
           <div className="celebration-image">
             <img 
-              src="/cute2.gif"
+              src="/valentine/cute2.gif"
               alt="Two teddy bears hugging"
               onError={(e) => {
                 // Fallback to emoji if image fails to load
@@ -304,9 +304,9 @@ function App() {
               ✕
             </button>
             <div className="plan-modal-photos plan-modal-photos-top">
-              <img src="/IMG_9911.JPG" alt="Us together" />
-              <img src="/IMG_9652.JPG" alt="Smiling together" />
-              <img src="/IMG_6489.jpeg" alt="Cute selfie" />
+              <img src="/valentine/IMG_9911.JPG" alt="Us together" />
+              <img src="/valentine/IMG_9652.JPG" alt="Smiling together" />
+              <img src="/valentine/IMG_6489.jpeg" alt="Cute selfie" />
             </div>
             <h2 className="plan-modal-title">Our Valentine&apos;s Night Plan 💕</h2>
             <p className="plan-modal-subtitle">
@@ -334,9 +334,9 @@ function App() {
               </p>
             </div>
             <div className="plan-modal-photos plan-modal-photos-bottom">
-              <img src="/IMG_6475.jpeg" alt="Another cozy moment" />
-              <img src="/grad-41__01.jpg" alt="Graduation memory" />
-              <img src="/DSC03277.JPG" alt="Another favorite moment" />
+              <img src="/valentine/IMG_6475.jpeg" alt="Another cozy moment" />
+              <img src="/valentine/grad-41__01.jpg" alt="Graduation memory" />
+              <img src="/valentine/DSC03277.JPG" alt="Another favorite moment" />
             </div>
           </div>
         </div>
