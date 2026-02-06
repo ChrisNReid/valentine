@@ -8,6 +8,7 @@ function App() {
   const [noButtonPos, setNoButtonPos] = useState({ x: 0, y: 0 })
   const [noClickCount, setNoClickCount] = useState(0)
   const [noButtonFixed, setNoButtonFixed] = useState(false)
+  const [showPlanModal, setShowPlanModal] = useState(false)
   
   const noButtonRef = useRef(null)
   const yesButtonRef = useRef(null)
@@ -151,7 +152,13 @@ function App() {
 
   // Create confetti
   const createConfetti = useCallback(() => {
-    const colors = ['#ff6b9d', '#ff8fab', '#ffa8c5', '#ffb8d4', '#ffc5e1', '#ffd1e8', '#ffe5f1', '#e91e63', '#ff9bb8', '#ffbfd8']
+    const colors = [
+      '#a864fd', // (168,100,253)
+      '#29cdff', // (41,205,255)
+      '#78ff44', // (120,255,68)
+      '#ff718d', // (255,113,141)
+      '#fdff6a'  // (253,255,106)
+    ]
     const confettiCount = 150
     const newConfetti = []
 
@@ -265,8 +272,8 @@ function App() {
         <>
           <div className="celebration-image">
             <img 
-              src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=400&fit=crop&crop=center" 
-              alt="Valentine's celebration"
+              src="/cute2.gif"
+              alt="Two teddy bears hugging"
               onError={(e) => {
                 // Fallback to emoji if image fails to load
                 e.target.style.display = 'none'
@@ -274,16 +281,67 @@ function App() {
               }}
             />
           </div>
-          <div className="celebration">🎉 Yay! I love you! 🎉</div>
+          <div className="celebration">🎉 Wooohoooo! 🎉</div>
           <button className="find-out-button" onClick={() => {
-            // You can add navigation or action here
-            alert("Find out what we'll do together! 💕")
+            setShowPlanModal(true)
           }}>
             Find out what we will do here
           </button>
         </>
       )}
-      
+
+      {showPlanModal && (
+        <div className="plan-modal-backdrop" onClick={() => setShowPlanModal(false)}>
+          <div
+            className="plan-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="plan-modal-close"
+              onClick={() => setShowPlanModal(false)}
+              aria-label="Close plan"
+            >
+              ✕
+            </button>
+            <div className="plan-modal-photos plan-modal-photos-top">
+              <img src="/IMG_9911.JPG" alt="Us together" />
+              <img src="/IMG_9652.JPG" alt="Smiling together" />
+              <img src="/IMG_6489.jpeg" alt="Cute selfie" />
+            </div>
+            <h2 className="plan-modal-title">Our Valentine&apos;s Night Plan 💕</h2>
+            <p className="plan-modal-subtitle">
+              A cozy, home-cooked date night by me, just for you.
+            </p>
+            <div className="plan-modal-section">
+              <h3>1. Three-Course Home-Cooked Dinner</h3>
+              <ul>
+                <li><span>Starter:</span> Light snacks</li>
+                <li><span>Main:</span> A warm, comforting main course</li>
+                <li><span>Dessert:</span> Something sweet, like you</li>
+              </ul>
+            </div>
+            <div className="plan-modal-section">
+              <h3>2. Cocktails Together</h3>
+              <p>
+                We&apos;ll mix up some cocktails, a little at home bar.
+              </p>
+            </div>
+            <div className="plan-modal-section">
+              <h3>3. Build a Fort &amp; Movie Night</h3>
+              <p>
+                We&apos;ll build a cozy blanket fort, grab all the pillows, matching sets,
+                and movie night.
+              </p>
+            </div>
+            <div className="plan-modal-photos plan-modal-photos-bottom">
+              <img src="/IMG_6475.jpeg" alt="Another cozy moment" />
+              <img src="/grad-41__01.jpg" alt="Graduation memory" />
+              <img src="/DSC03277.JPG" alt="Another favorite moment" />
+            </div>
+          </div>
+        </div>
+      )}
+
       {!yesClicked && noClickCount > 0 && (
         <div className="no-message">{getCurrentMessage()}</div>
       )}
