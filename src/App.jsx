@@ -15,6 +15,18 @@ function App() {
   const buttonsContainerRef = useRef(null)
   const h1Ref = useRef(null)
   
+  // Lighten the background once "Yes" is clicked
+  useEffect(() => {
+    if (yesClicked) {
+      document.body.classList.add('yes-screen')
+    } else {
+      document.body.classList.remove('yes-screen')
+    }
+    return () => {
+      document.body.classList.remove('yes-screen')
+    }
+  }, [yesClicked])
+  
   const noMessages = [
     "Are you sure you want to press that one?",
     "Really?",
@@ -159,18 +171,22 @@ function App() {
       '#ff718d', // (255,113,141)
       '#fdff6a'  // (253,255,106)
     ]
-    const confettiCount = 150
+    const confettiCount = 260
     const newConfetti = []
 
     for (let i = 0; i < confettiCount; i++) {
       const confettiPiece = {
         id: Date.now() + i,
+        // horizontal start position in viewport width
         left: Math.random() * 100,
-        top: -10,
+        // start just above the viewport for a top-down burst
+        top: -40,
         color: colors[Math.floor(Math.random() * colors.length)],
-        size: Math.random() * 10 + 5,
-        duration: Math.random() * 3 + 2,
-        delay: Math.random() * 0.5
+        size: Math.random() * 8 + 4,
+        duration: Math.random() * 2.5 + 2,
+        delay: Math.random() * 0.8,
+        // small horizontal drift so pieces spread out as they fall
+        drift: (Math.random() - 0.5) * 40
       }
       newConfetti.push(confettiPiece)
     }
@@ -246,7 +262,21 @@ function App() {
 
   return (
     <div className="container">
-      <h1 ref={h1Ref}>Deffy, will you be my Valentine?</h1>
+      {!yesClicked && (
+        <>
+          <h1 ref={h1Ref}>Deffy, will you be my Valentine?</h1>
+          <div className="question-gif-wrapper">
+            <img
+              src="/valentine/quby-flower.gif"
+              alt="Cute animated character offering a flower"
+              className="question-gif"
+            />
+          </div>
+        </>
+      )}
+      {!yesClicked && noClickCount > 0 && (
+        <div className="no-message">{getCurrentMessage()}</div>
+      )}
       <div ref={buttonsContainerRef} className="buttons-container">
         {!yesClicked && (
           <button ref={yesButtonRef} className="yes-button" onClick={handleYesClick}>
@@ -342,23 +372,20 @@ function App() {
         </div>
       )}
 
-      {!yesClicked && noClickCount > 0 && (
-        <div className="no-message">{getCurrentMessage()}</div>
-      )}
-      
       {/* Confetti */}
       {confetti.map((piece) => (
         <div
           key={piece.id}
           className="confetti"
           style={{
-            left: `${piece.left}%`,
-            top: `${piece.top}px`,
+            '--confetti-x': `${piece.left}vw`,
+            '--confetti-y-start': `${piece.top}px`,
+            '--confetti-drift': `${piece.drift}vw`,
+            '--confetti-duration': `${piece.duration}s`,
+            '--confetti-delay': `${piece.delay}s`,
             background: piece.color,
             width: `${piece.size}px`,
-            height: `${piece.size}px`,
-            animationDuration: `${piece.duration}s`,
-            animationDelay: `${piece.delay}s`
+            height: `${piece.size}px`
           }}
         />
       ))}
